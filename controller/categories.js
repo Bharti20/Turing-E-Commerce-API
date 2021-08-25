@@ -11,7 +11,40 @@ let selectAllCategories = (req, res) => {
         console.log(err)
     });
 };
+// byId
+let selectById = (req,res) => {
+    knex.from('category')
+    .where({category_id: req.params.id }).then((idData) => {
+        res.send(idData)
+        console.log(idData)
+    }).catch((err) => {
+        res.send(err)
+    })
+};
+
+//Category Of product
+const selectCategoryOfproduct = (req,res) => {
+    knex.select('*').from('product').where({product_id:req.params.id})
+    .then((categoryOfProduct) => {
+        res.send(categoryOfProduct)
+    }).catch((err) => {
+        res.send(err)
+    });
+};
+
+// category of department
+const selectCategoryOfDepartment = (req,res) => {
+    knex.select('*').from('category').where({"department_id": req.params.id})
+    .then((categoryOfDepartment) => {
+        res.send(categoryOfDepartment)
+    }).catch((err) => {
+        res.send(err)
+    })
+}
 
 module.exports = {
-    selectAllCategories
+    selectAllCategories,
+    selectById,
+    selectCategoryOfproduct,
+    selectCategoryOfDepartment
 }

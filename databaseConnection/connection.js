@@ -5,7 +5,7 @@ const knex = require('knex')({
         host: 'localhost',
         user: 'root',
         password: 'Bharti@1234',
-        database: 'turing_project'
+        database: 'turingProject'
     }
 
 });
