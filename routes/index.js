@@ -1,8 +1,9 @@
 const express = require('express')
 const Router = express.Router()
 
-const getDepartmentRoute = require('./getDepartmentsRoute')
+const departmRoute = require('./departmentsRoutes')
 
-Router.use('/seeDepartments', getDepartmentRoute)
+Router.use('/', departmRoute)
+
 
 module.exports = Router
