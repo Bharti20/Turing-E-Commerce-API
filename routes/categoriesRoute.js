@@ -3,9 +3,9 @@ const Router = express.Router()
 
 const getCategories = require('../controller/categories')
 
-Router.get('/allCategories', getCategories.selectAllCategories)
-Router.get('/categoryById/:id', getCategories.selectById)
-Router.get('/categoryOfProduct/:id', getCategories.selectCategoryOfproduct)
-Router.get('/categoryOfDepartment/:id', getCategories.selectCategoryOfDepartment)
+Router.get('/categories', getCategories.selectAllCategories)
+Router.get('/categories/:id', getCategories.selectById)
+Router.get('/categories/inProduct/:id', getCategories.selectCategoryOfproduct)
+Router.get('/categories/inDepartment/:id', getCategories.selectCategoryOfDepartment)
 
 module.exports = Router

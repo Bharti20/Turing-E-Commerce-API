@@ -24,7 +24,9 @@ let selectById = (req,res) => {
 
 //Category Of product
 const selectCategoryOfproduct = (req,res) => {
-    knex.select('*').from('product').where({product_id:req.params.id})
+    knex('category')
+    .join('product_category', 'category.category_id', '=', 'product_category.product_id')
+    .select('category.category_id', 'category.department_id', 'category.name')
     .then((categoryOfProduct) => {
         res.send(categoryOfProduct)
     }).catch((err) => {
