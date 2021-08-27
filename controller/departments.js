@@ -15,8 +15,8 @@ let departments = (req, res) => {
  let departmentById = (req, res) => {
     knex.from('department')
     .where({department_id:req.params.id }).then((data) => {
-        res.send(data[0])
-        console.log(data[0])
+        res.send(data)
+        console.log(data)
     }).catch((err) => {
         res.send(err)
     });
