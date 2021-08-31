@@ -30,7 +30,7 @@ const productById = (req, res) => {
         });
 };
 
-// joining three tables
+// by category_id
 const getProductOfCategory = (req, res) => {
     let id = req.params.category_id
     knex('product')
@@ -44,9 +44,62 @@ const getProductOfCategory = (req, res) => {
     })
 }
 
+//by department_id
+
+const productsOnDepartment = (req, res) =>{
+    knex('product')
+    .join('department', 'department.department_id','=','product.product_id' )
+    .where('department.department_id',req.params.department_id)
+    .select('product.product_id', 'product.name','product.description', 'product.price', 'product.discounted_price', 'product.thumbnail')
+    .then((data) => {
+        res.send(data)
+    }).catch((err) => {
+        res.send(err)
+    });
+};
+
+//product details by id
+const productDetails = (req, res) => {
+    knex('product')
+    .where('product.product_id', req.params.product_id)
+    .select('product.product_id', 'product.name','product.description', 'product.price', 'product.discounted_price', 'product.image','product.image_2')
+    .then((details) => {
+        res.send(details)
+    }).catch((err) => {
+        res.send(err)
+    });
+}
+
+// product location
+const productLocation = (req, res) => {
+    knex('category')
+    .join('product', 'product.product_id', '=', 'category.category_id')
+    .join('department', 'department.department_id', '=','category.department_id')
+    .where('product.product_id', req.params.product_id)
+    .select({category_id:'category.category_id', category_name:'category.name', department_id:'category.department_id', department_name:'department.name'})
+    .then((productLocation) => {
+        res.send(productLocation)
+    }).catch((err) => {
+        res.send(err)
+    });
+}
+//review
+const productReview = (req, res) => {
+    knex.select('*').from('review')
+    .then((reviews) => {
+        res.send('reviews')
+    }).catch((err) => {
+        res.send(err)
+    });
+};
+
 module.exports = {
     selectProducts,
     searchProduct,
     productById,
-    getProductOfCategory
+    getProductOfCategory,
+    productsOnDepartment,
+    productDetails,
+    productLocation,
+    productReview
 }
